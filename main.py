@@ -20,12 +20,15 @@ period = n_years * 365
 
 @st.cache_data  # helps cache the data, so that we don't have to always run the same code while loading data every instance
 def load_data(ticker):
-    data = yf.download(ticker, START, TODAY)
+    data = yf.download(ticker, period="5y", progress=False)
     data.reset_index(inplace=True)
     return data
 
 data_load_state = st.text("Load data...")
 data = load_data(selected_stock)
+if data.empty:
+    st.error("Failed to fetch data. Try again.")
+    st.stop()
 data.columns = data.columns.get_level_values(0)
 data_load_state.text("Loading data...done!")
 
