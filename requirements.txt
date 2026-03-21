@@ -1,0 +1,6 @@
+streamlit
+pandas
+yfinance
+prophet==1.1.5
+plotly
+cmdstanpy
